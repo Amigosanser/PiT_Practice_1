@@ -33,12 +33,10 @@ namespace PiT_Practice_1
 
             try
             {
-                // Считываем значения x и y
                 double x = double.Parse(TextBoxX.Text);
                 double y = double.Parse(TextBoxY.Text);
                 double fx;
 
-                // Определяем выбранную функцию f(x)
                 if (RadioButtonSinh.IsChecked == true)
                     fx = Math.Sinh(x); // sh(x)
                 else if (RadioButtonSquare.IsChecked == true)
@@ -46,7 +44,6 @@ namespace PiT_Practice_1
                 else
                     fx = Math.Exp(x); // e^x
 
-                // Вычисляем значение a в зависимости от условий
                 double a;
                 if (x * y > 0)
                 {
@@ -54,14 +51,13 @@ namespace PiT_Practice_1
                 }
                 else if (x * y < 0)
                 {
-                    a = Math.Pow(fx + y, 2) + Math.Sqrt(Math.Abs(fx * y)); // Модуль под корнем
+                    a = Math.Pow(fx + y, 2) + Math.Sqrt(Math.Abs(fx * y));
                 }
-                else // x * y == 0
+                else
                 {
                     a = Math.Pow(fx + y, 2) + 1;
                 }
 
-                // Выводим результат
                 TextBoxResult.Text = a.ToString("F2");
             }
             catch (FormatException)
@@ -76,7 +72,6 @@ namespace PiT_Practice_1
 
         private void ButtonClear_Click(object sender, RoutedEventArgs e)
         {
-            // Очищаем все поля и сбрасываем выбранную функцию
             TextBoxX.Clear();
             TextBoxY.Clear();
             TextBoxResult.Clear();
@@ -85,11 +80,10 @@ namespace PiT_Practice_1
 
         private void Window_Closing(object sender, System.ComponentModel.CancelEventArgs e)
         {
-            // Подтверждение выхода из приложения
             MessageBoxResult result = MessageBox.Show("Вы уверены, что хотите выйти?", "Подтверждение выхода", MessageBoxButton.YesNo, MessageBoxImage.Question);
             if (result == MessageBoxResult.No)
             {
-                e.Cancel = true; // Отмена закрытия окна
+                e.Cancel = true;
             }
         }
     }
