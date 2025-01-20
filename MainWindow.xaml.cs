@@ -24,6 +24,13 @@ namespace PiT_Practice_1
 
         private void ButtonCalculate_Click(object sender, RoutedEventArgs e)
         {
+            // Проверка полей на заполненность
+            if (string.IsNullOrWhiteSpace(TextBoxX.Text) || string.IsNullOrWhiteSpace(TextBoxY.Text))
+            {
+                MessageBox.Show("Пожалуйста, заполните все поля ввода.", "Ошибка ввода", MessageBoxButton.OK, MessageBoxImage.Warning);
+                return;
+            }
+
             try
             {
                 // Считываем значения x и y
@@ -57,10 +64,13 @@ namespace PiT_Practice_1
                 // Выводим результат
                 TextBoxResult.Text = a.ToString("F2");
             }
+            catch (FormatException)
+            {
+                MessageBox.Show("Пожалуйста, введите числовые значения для x и y.", "Ошибка ввода", MessageBoxButton.OK, MessageBoxImage.Error);
+            }
             catch (Exception ex)
             {
-                // Обработка ошибок ввода
-                MessageBox.Show("Ошибка ввода данных: " + ex.Message, "Ошибка", MessageBoxButton.OK, MessageBoxImage.Error);
+                MessageBox.Show("Произошла ошибка: " + ex.Message, "Ошибка", MessageBoxButton.OK, MessageBoxImage.Error);
             }
         }
 
@@ -71,6 +81,16 @@ namespace PiT_Practice_1
             TextBoxY.Clear();
             TextBoxResult.Clear();
             RadioButtonSinh.IsChecked = true;
+        }
+
+        private void Window_Closing(object sender, System.ComponentModel.CancelEventArgs e)
+        {
+            // Подтверждение выхода из приложения
+            MessageBoxResult result = MessageBox.Show("Вы уверены, что хотите выйти?", "Подтверждение выхода", MessageBoxButton.YesNo, MessageBoxImage.Question);
+            if (result == MessageBoxResult.No)
+            {
+                e.Cancel = true; // Отмена закрытия окна
+            }
         }
     }
 }
